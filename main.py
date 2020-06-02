@@ -1,5 +1,8 @@
 # coding: utf-8
 
+import logging
+import os
+
 from aiogram import Bot
 from aiogram import types
 from aiogram.dispatcher import Dispatcher
@@ -9,6 +12,19 @@ from aiogram.utils import executor
 
 BOT_TOKEN = '123456789:AAAA-AAAAAAAAAAAAAAAAAAAAAAAA'
 PAYMENTS_PROVIDER_TOKEN = '123456789:TEST:12345'
+FILENAME = 'payment.log'
+
+
+log_dir = os.path.join(os.path.dirname(__file__), 'log')
+log_file = os.path.join(log_dir, FILENAME)
+os.makedirs(log_dir, mode=0o777, exist_ok=True)
+logging.basicConfig(
+    filename=log_file,
+    level=logging.DEBUG,
+    format=("%(filename)+20s [ LINE:%(lineno)-4s] "
+            "%(levelname)-8s [%(asctime)s] %(message)s"),
+    datefmt="%d.%m.%Y (%H:%M:%S)"
+)
 
 
 bot = Bot(BOT_TOKEN)
